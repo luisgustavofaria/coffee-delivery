@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
 body, input, textarea, button {
     font-family: 'Inter', sans-serif;
-    background-color: #F0F2F5;
+    
   }
 
   p {

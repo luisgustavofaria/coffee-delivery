@@ -7,7 +7,9 @@ import {
   ConstainerInfoText,
   InfoIcons,
   InfoText,
+  ContainerCoffes,
 } from './styles';
+import { CardCoffes } from './CardCoffes';
 
 export function Home() {
   return (
@@ -69,6 +71,12 @@ export function Home() {
           <img src="/images/hero.svg" alt="hero-bg" />
         </ConstainerInfoImage>
       </ConstainerInfo>
+      <ContainerCoffes>
+        <h2>Nossos Cafés</h2>
+        <div>
+          <CardCoffes />
+        </div>
+      </ContainerCoffes>
     </Container>
   );
 }

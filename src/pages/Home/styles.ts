@@ -64,3 +64,13 @@ export const ConstainerInfoImage = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
+export const ContainerCoffes = styled.div`
+  margin-top: 110px;
+
+  h2 {
+    ${typography.fonts.titleL}
+    padding-top: 32px;
+    padding-bottom: 34px;
+  }
+`;
