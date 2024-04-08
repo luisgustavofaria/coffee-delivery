@@ -74,3 +74,10 @@ export const ContainerCoffes = styled.div`
     padding-bottom: 34px;
   }
 `;
+
+export const ContainerCardCoffees = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+`;

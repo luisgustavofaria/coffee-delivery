@@ -21,10 +21,15 @@ export const CoffeeImage = styled.img`
 export const TagCoffee = styled.div`
   ${typography.fonts.tag}
   margin-top: 10px;
-  color: #c47f17;
-  background-color: #f1e9c9;
-  padding: 5px;
-  border-radius: 100px;
+  display: flex;
+  gap: 5px;
+
+  span {
+    color: #c47f17;
+    background-color: #f1e9c9;
+    padding: 5px;
+    border-radius: 100px;
+  }
 `;
 
 export const CoffeeTitle = styled.span`
@@ -33,4 +38,5 @@ export const CoffeeTitle = styled.span`
 
 export const CoffeeDescription = styled.span`
   ${typography.fonts.textS}
+  padding: 0 20px 0;
 `;

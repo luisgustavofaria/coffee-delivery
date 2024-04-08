@@ -8,8 +8,10 @@ import {
   InfoIcons,
   InfoText,
   ContainerCoffes,
+  ContainerCardCoffees,
 } from './styles';
 import { CardCoffes } from './CardCoffes';
+import { coffees } from '../../../data.json';
 
 export function Home() {
   return (
@@ -73,9 +75,11 @@ export function Home() {
       </ConstainerInfo>
       <ContainerCoffes>
         <h2>Nossos Cafés</h2>
-        <div>
-          <CardCoffes />
-        </div>
+        <ContainerCardCoffees>
+          {coffees.map((coffee) => (
+            <CardCoffes key={coffee.id} coffee={coffee} />
+          ))}
+        </ContainerCardCoffees>
       </ContainerCoffes>
     </Container>
   );

@@ -6,27 +6,31 @@ import {
   TagCoffee,
 } from './styles';
 
-// interface ICardCoffes {
-//   id: string;
-//   title: string;
-//   description: string;
-//   tags: string;
-//   price: number;
-//   image: string;
-// }
+interface ICardCoffes {
+  coffee: {
+    id: string;
+    title: string;
+    description: string;
+    tags: string[];
+    price: number;
+    image: string;
+  };
+}
 
-export function CardCoffes() {
+export function CardCoffes({ coffee }: ICardCoffes) {
   return (
     <ContainerCard>
-      <CoffeeImage src={'/images/coffees/americano.png'} alt={''} />
+      <CoffeeImage src={coffee.image} alt={''} />
       <TagCoffee>
-        <span>TRADICIONAL</span>
+        {coffee.tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
       </TagCoffee>
       <CoffeeTitle>
-        <span>Expresso Tradicional</span>
+        <span>{coffee.title}</span>
       </CoffeeTitle>
       <CoffeeDescription>
-        <span>O tradicional café feito com água quente e grãos moídos</span>
+        <span>{coffee.description}</span>
       </CoffeeDescription>
     </ContainerCard>
   );
