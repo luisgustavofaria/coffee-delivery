@@ -1,8 +1,14 @@
+import { Minus, Plus, ShoppingCartSimple } from '@phosphor-icons/react';
 import {
+  ButtonShoppingCart,
   CoffeeDescription,
   CoffeeImage,
+  CoffeePrice,
   CoffeeTitle,
   ContainerCard,
+  DivQuantityInput,
+  Price,
+  QuantityInput,
   TagCoffee,
 } from './styles';
 
@@ -23,7 +29,7 @@ export function CardCoffes({ coffee }: ICardCoffes) {
       <CoffeeImage src={coffee.image} alt={''} />
       <TagCoffee>
         {coffee.tags.map((tag) => (
-          <span key={tag}>{tag}</span>
+          <span key={tag}>{tag.toUpperCase()}</span>
         ))}
       </TagCoffee>
       <CoffeeTitle>
@@ -32,6 +38,23 @@ export function CardCoffes({ coffee }: ICardCoffes) {
       <CoffeeDescription>
         <span>{coffee.description}</span>
       </CoffeeDescription>
+      <CoffeePrice>
+        <Price>
+          <span>R$</span>
+          <span>{coffee.price.toFixed(2)}</span>
+        </Price>
+
+        <DivQuantityInput>
+          <QuantityInput>
+            <Minus size={14} />
+            <span>1</span>
+            <Plus size={14} />
+          </QuantityInput>
+          <ButtonShoppingCart>
+            <ShoppingCartSimple size={20} color="#ffffff" weight="fill" />
+          </ButtonShoppingCart>
+        </DivQuantityInput>
+      </CoffeePrice>
     </ContainerCard>
   );
 }
