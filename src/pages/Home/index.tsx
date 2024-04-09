@@ -1,6 +1,5 @@
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react';
-import { Container } from '../../components/Container/styles';
-import { Header } from '../../components/Header';
+
 import {
   ConstainerInfo,
   ConstainerInfoImage,
@@ -15,8 +14,7 @@ import { coffees } from '../../../data.json';
 
 export function Home() {
   return (
-    <Container>
-      <Header />
+    <>
       <ConstainerInfo>
         <ConstainerInfoText>
           <InfoText>
@@ -81,6 +79,6 @@ export function Home() {
           ))}
         </ContainerCardCoffees>
       </ContainerCoffes>
-    </Container>
+    </>
   );
 }
