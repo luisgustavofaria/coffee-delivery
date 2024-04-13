@@ -3,7 +3,10 @@ import {
   CreditCard,
   CurrencyDollar,
   MapPinLine,
+  Minus,
   Money,
+  Plus,
+  Trash,
 } from '@phosphor-icons/react';
 import {
   ContainerCheckout,
@@ -11,6 +14,15 @@ import {
   ContainerAdress,
   ContainerPayment,
   Payment,
+  QuantityControl,
+  CoffeeOrder,
+  OrderContainer,
+  CoffeeItem,
+  CoffeeDetails,
+  RemoveOption,
+  TotalSection,
+  TotalItem,
+  ConfirmButton,
 } from './styles';
 
 export function Checkout() {
@@ -67,64 +79,73 @@ export function Checkout() {
         </ContainerPayment>
       </ContainerPaymentData>
 
-      <div>
+      <OrderContainer>
         <span>Cafés selecionados</span>
-        <div>
-          <div>
-            <img src="" alt="" />
-            <div>
+        <CoffeeOrder>
+          <CoffeeItem>
+            <img src="/images/coffees/americano.png" alt="" />
+            <CoffeeDetails>
               <span>Expresso Tradicional</span>
               <div>
-                <div>
-                  <img src="" alt="" />
+                <QuantityControl>
+                  <button>
+                    <Minus size={14} />
+                  </button>
                   <span>1</span>
-                  <img src="" alt="" />
-                </div>
-                <div>
-                  <img src="" alt="" />
+                  <button>
+                    <Plus size={14} />
+                  </button>
+                </QuantityControl>
+                <RemoveOption>
+                  <Trash size={16} />
                   <span>REMOVER</span>
-                </div>
+                </RemoveOption>
               </div>
-              <span>R$9,90</span>
-            </div>
-          </div>
-          <div>
-            <img src="" alt="" />
-            <div>
+            </CoffeeDetails>
+            <span>R$9,90</span>
+          </CoffeeItem>
+          <CoffeeItem>
+            <img src="/images/coffees/latte.png" alt="" />
+            <CoffeeDetails>
               <span>Latte</span>
               <div>
-                <div>
-                  <img src="" alt="" />
+                <QuantityControl>
+                  <button>
+                    <Minus size={14} />
+                  </button>
                   <span>1</span>
-                  <img src="" alt="" />
-                </div>
-                <div>
-                  <img src="" alt="" />
+                  <button>
+                    <Plus size={14} />
+                  </button>
+                </QuantityControl>
+                <RemoveOption>
+                  <Trash size={16} />
                   <span>REMOVER</span>
-                </div>
+                </RemoveOption>
               </div>
-              <span>R$19,80</span>
-            </div>
-          </div>
-          <div>
-            <div>
+            </CoffeeDetails>
+            <span>R$19,90</span>
+          </CoffeeItem>
+
+          <TotalSection>
+            <TotalItem>
               <span>Total de itens</span>
               <span>R$29,70</span>
-            </div>
-            <div>
+            </TotalItem>
+            <TotalItem>
               <span>Entrega</span>
               <span>R$3,50</span>
-            </div>
-            <div>
+            </TotalItem>
+            <TotalItem>
               <span>Total</span>
               <span>R$32,20</span>
-            </div>
-          </div>
-          <div>
+            </TotalItem>
+          </TotalSection>
+          <ConfirmButton>
             <span>CONFIRMAR PEDIDO</span>
-          </div>
-        </div>
-      </div>
+          </ConfirmButton>
+        </CoffeeOrder>
+      </OrderContainer>
     </ContainerCheckout>
   );
 }
