@@ -46,9 +46,13 @@ export function CardCoffes({ coffee }: ICardCoffes) {
 
         <DivQuantityInput>
           <QuantityInput>
-            <Minus size={14} />
+            <button>
+              <Minus size={14} />
+            </button>
             <span>1</span>
-            <Plus size={14} />
+            <button>
+              <Plus size={14} />
+            </button>
           </QuantityInput>
           <ButtonShoppingCart>
             <ShoppingCartSimple size={20} color="#ffffff" weight="fill" />

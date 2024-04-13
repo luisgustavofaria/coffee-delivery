@@ -3,6 +3,7 @@ import { typography } from '../../../styles/themes/typography';
 
 export const ContainerCard = styled.div`
   background-color: #f3f2f2;
+  position: relative;
 
   width: 256px;
   height: 310px;
@@ -45,10 +46,12 @@ export const CoffeeDescription = styled.span`
 `;
 
 export const CoffeePrice = styled.div`
+  position: absolute;
   display: flex;
   align-items: center;
-  margin-top: 33px;
+
   gap: 20px;
+  bottom: 20px;
 `;
 
 export const Price = styled.div`
@@ -73,25 +76,43 @@ export const DivQuantityInput = styled.div`
 `;
 
 export const QuantityInput = styled.div`
-  padding: 7px 10px 7px 10px;
+  padding: 3px 0px 3px 0px;
 
   display: flex;
   align-items: center;
   background-color: #e6e5e5;
-  gap: 7px;
+  gap: 5px;
   border-radius: 5px;
+
+  svg {
+    color: ${(props) => props.theme.colors.purple};
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      padding: 7px 3px 7px 5px;
+    }
+    &:last-child {
+      padding: 7px 5px 7px 3px;
+    }
+
+    &:hover {
+      svg {
+        color: ${(props) => props.theme.colors['purple-dark']};
+        transform: scale(1.3);
+      }
+    }
+  }
 
   span {
     ${typography.fonts.textM}
     color: #272221;
-  }
-
-  svg {
-    color: #8047f8;
-    cursor: pointer;
-    &:hover {
-      color: #4b2995;
-    }
   }
 `;
 

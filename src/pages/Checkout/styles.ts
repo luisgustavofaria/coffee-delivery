@@ -73,11 +73,17 @@ export const ContainerAdress = styled(ContainerAddressPayment)`
 
   input {
     background-color: #ededed;
-    border: none;
-    padding: 12px;
+    border: none; //tirar borda do input
+    outline: none; //tirar borda do input focus
+    padding: 11px;
     border-radius: 5px;
     ${typography.fonts.textS}
     color: ${(props) => props.theme.colors['base-label']};
+    border: 1px solid transparent;
+  }
+
+  input:focus {
+    border-color: ${(props) => props.theme.colors.yellow};
   }
 `;
 
@@ -103,6 +109,11 @@ export const Payment = styled.div`
     flex: 1;
     cursor: pointer;
     border-radius: 5px;
+  }
+
+  :focus {
+    border: 1px solid #8047f8;
+    background-color: ${(props) => props.theme.colors['base-card']};
   }
 `;
 
@@ -192,9 +203,18 @@ export const RemoveOption = styled.div`
   align-items: center;
   padding: 5px 8px;
   gap: 5px;
+  cursor: pointer;
 
   svg {
     color: ${(props) => props.theme.colors.purple};
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors['base-hover']};
+
+    svg {
+      color: ${(props) => props.theme.colors['purple-dark']};
+    }
   }
 `;
 export const TotalSection = styled.div`
@@ -225,28 +245,12 @@ export const ConfirmButton = styled.div`
   border-radius: 8px;
   text-align: center;
 
+  &:hover {
+    background-color: ${(props) => props.theme.colors['yellow-dark']};
+  }
+
   span {
     ${typography.fonts.buttonG}
     color: ${(props) => props.theme.colors.white};
   }
 `;
-
-/* img {
-    width: 64px;
-  }
-
-  > div {
-    display: flex;
-    flex-direction: column;
-
-    
-
-    div:nth-child(2) {
-      display: flex;
-      gap: 5px;
-      padding: 8px;
-      
-    }
-    div:nth-child(3) {
-    }
-  } */
