@@ -11,6 +11,7 @@ import {
   QuantityInput,
   TagCoffee,
 } from './styles';
+import { useState } from 'react';
 
 interface ICardCoffes {
   coffee: {
@@ -24,6 +25,18 @@ interface ICardCoffes {
 }
 
 export function CardCoffes({ coffee }: ICardCoffes) {
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <ContainerCard>
       <CoffeeImage src={coffee.image} alt={''} />
@@ -46,11 +59,11 @@ export function CardCoffes({ coffee }: ICardCoffes) {
 
         <DivQuantityInput>
           <QuantityInput>
-            <button>
+            <button onClick={decreaseQuantity}>
               <Minus size={14} />
             </button>
-            <span>1</span>
-            <button>
+            <span>{quantity}</span>
+            <button onClick={increaseQuantity}>
               <Plus size={14} />
             </button>
           </QuantityInput>
