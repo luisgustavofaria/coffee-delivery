@@ -8,7 +8,8 @@ export function DefaultLayout() {
   const [totalItems, setTotalItems] = useState(0);
 
   function addToCart(quantity: number): void {
-    setTotalItems(quantity);
+    const newTotalItems = totalItems + quantity;
+    setTotalItems(newTotalItems);
   }
 
   return (
