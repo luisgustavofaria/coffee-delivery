@@ -11,7 +11,8 @@ import {
   QuantityInput,
   TagCoffee,
 } from './styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CartContext } from '../../../Hooks/useCart';
 
 interface ICardCoffes {
   coffee: {
@@ -26,6 +27,7 @@ interface ICardCoffes {
 
 export function CardCoffes({ coffee }: ICardCoffes) {
   const [quantity, setQuantity] = useState(1);
+  const { setTotalItems } = useContext(CartContext);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -67,7 +69,7 @@ export function CardCoffes({ coffee }: ICardCoffes) {
               <Plus size={14} />
             </button>
           </QuantityInput>
-          <ButtonShoppingCart>
+          <ButtonShoppingCart onClick={() => setTotalItems(quantity)}>
             <ShoppingCartSimple size={20} color="#ffffff" weight="fill" />
           </ButtonShoppingCart>
         </DivQuantityInput>

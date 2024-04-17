@@ -8,7 +8,12 @@ import {
 } from './styles';
 import { NavLink } from 'react-router-dom';
 
+import { CartContext } from '../../Hooks/useCart';
+import { useContext } from 'react';
+
 export function Header() {
+  const { totalItems } = useContext(CartContext);
+
   return (
     <ContainerHeader>
       <NavLink to={'/'}>
@@ -25,7 +30,7 @@ export function Header() {
           </DivShoppingCart>
         </NavLink>
         <CounterCoffees>
-          <span>2</span>
+          <span>{totalItems}</span>
         </CounterCoffees>
       </Aside>
     </ContainerHeader>
