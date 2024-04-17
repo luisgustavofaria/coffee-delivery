@@ -1,23 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import { Container } from '../components/Container/styles';
 import { Header } from '../components/Header';
-import { CartContext } from '../Hooks/useCart';
-import { useState } from 'react';
+import { CartProvider } from '../Hooks/useCart';
 
 export function DefaultLayout() {
-  const [totalItems, setTotalItems] = useState(0);
-
-  function addToCart(quantity: number): void {
-    const newTotalItems = totalItems + quantity;
-    setTotalItems(newTotalItems);
-  }
-
   return (
     <Container>
-      <CartContext.Provider value={{ totalItems, addToCart }}>
+      <CartProvider>
         <Header />
         <Outlet />
-      </CartContext.Provider>
+      </CartProvider>
     </Container>
   );
 }
