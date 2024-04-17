@@ -26,8 +26,8 @@ interface ICardCoffes {
 }
 
 export function CardCoffes({ coffee }: ICardCoffes) {
-  const [quantity, setQuantity] = useState(1);
-  const { setTotalItems } = useContext(CartContext);
+  const [quantity, setQuantity] = useState(0);
+  const { addToCart } = useContext(CartContext);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -38,6 +38,11 @@ export function CardCoffes({ coffee }: ICardCoffes) {
       setQuantity(quantity - 1);
     }
   };
+
+  function onAddToCart() {
+    addToCart(quantity);
+    setQuantity(0);
+  }
 
   return (
     <ContainerCard>
@@ -69,7 +74,7 @@ export function CardCoffes({ coffee }: ICardCoffes) {
               <Plus size={14} />
             </button>
           </QuantityInput>
-          <ButtonShoppingCart onClick={() => setTotalItems(quantity)}>
+          <ButtonShoppingCart onClick={onAddToCart}>
             <ShoppingCartSimple size={20} color="#ffffff" weight="fill" />
           </ButtonShoppingCart>
         </DivQuantityInput>

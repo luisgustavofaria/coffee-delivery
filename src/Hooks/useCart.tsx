@@ -2,12 +2,12 @@ import { createContext } from 'react';
 
 interface CartContextType {
   totalItems: number;
-  setTotalItems: (quantity: number) => void; // Ensure this is a function
+  addToCart: (quantity: number) => void; // Ensure this is a function
 }
-//handleAddToCart: (quantity: number) => void;
 
 export const CartContext = createContext({} as CartContextType);
 
+//handleAddToCart: (quantity: number) => void;
 // export const CartProvider = ({ children }) => {
 //   const [totalItems, setTotalItems] = useState(0);
 //   const [items, setItems] = useState([]);

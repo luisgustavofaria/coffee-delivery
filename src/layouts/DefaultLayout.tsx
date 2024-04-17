@@ -5,11 +5,15 @@ import { CartContext } from '../Hooks/useCart';
 import { useState } from 'react';
 
 export function DefaultLayout() {
-  const [totalItems, setTotalItems] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+
+  function addToCart(quantity: number): void {
+    setTotalItems(quantity);
+  }
 
   return (
     <Container>
-      <CartContext.Provider value={{ totalItems, setTotalItems }}>
+      <CartContext.Provider value={{ totalItems, addToCart }}>
         <Header />
         <Outlet />
       </CartContext.Provider>
