@@ -14,7 +14,7 @@ import {
 import { useContext, useState } from 'react';
 import { CartContext } from '../../../Hooks/useCart';
 
-interface ICardCoffes {
+export interface ICardCoffes {
   coffee: {
     id: string;
     title: string;
@@ -28,6 +28,7 @@ interface ICardCoffes {
 export function CardCoffes({ coffee }: ICardCoffes) {
   const [quantity, setQuantity] = useState(0);
   const { addToCart } = useContext(CartContext);
+  const { addItemToCart } = useContext(CartContext);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -41,6 +42,7 @@ export function CardCoffes({ coffee }: ICardCoffes) {
 
   function onAddToCart() {
     addToCart(quantity);
+    addItemToCart({ coffee });
     setQuantity(0);
   }
 

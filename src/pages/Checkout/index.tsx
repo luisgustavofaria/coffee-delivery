@@ -24,8 +24,12 @@ import {
   TotalItem,
   ConfirmButton,
 } from './styles';
+import { CartContext } from '../../Hooks/useCart';
+import { useContext } from 'react';
 
 export function Checkout() {
+  const { cartItems } = useContext(CartContext);
+
   return (
     <ContainerCheckout>
       <ContainerPaymentData>
@@ -82,50 +86,31 @@ export function Checkout() {
       <OrderContainer>
         <span>Cafés selecionados</span>
         <CoffeeOrder>
-          <CoffeeItem>
-            <img src="/images/coffees/americano.png" alt="" />
-            <CoffeeDetails>
-              <span>Expresso Tradicional</span>
-              <div>
-                <QuantityControl>
-                  <button>
-                    <Minus size={14} />
-                  </button>
-                  <span>1</span>
-                  <button>
-                    <Plus size={14} />
-                  </button>
-                </QuantityControl>
-                <RemoveOption>
-                  <Trash size={16} />
-                  <span>REMOVER</span>
-                </RemoveOption>
-              </div>
-            </CoffeeDetails>
-            <span>R$9,90</span>
-          </CoffeeItem>
-          <CoffeeItem>
-            <img src="/images/coffees/latte.png" alt="" />
-            <CoffeeDetails>
-              <span>Latte</span>
-              <div>
-                <QuantityControl>
-                  <button>
-                    <Minus size={14} />
-                  </button>
-                  <span>1</span>
-                  <button>
-                    <Plus size={14} />
-                  </button>
-                </QuantityControl>
-                <RemoveOption>
-                  <Trash size={16} />
-                  <span>REMOVER</span>
-                </RemoveOption>
-              </div>
-            </CoffeeDetails>
-            <span>R$19,90</span>
-          </CoffeeItem>
+          {cartItems.map((item) => (
+            <CoffeeItem key={item.coffee.id}>
+              <img src={item.coffee.image} alt="" />
+              <CoffeeDetails>
+                <span>{item.coffee.title}</span>
+
+                <div>
+                  <QuantityControl>
+                    <button>
+                      <Minus size={14} />
+                    </button>
+                    <span>1</span>
+                    <button>
+                      <Plus size={14} />
+                    </button>
+                  </QuantityControl>
+                  <RemoveOption>
+                    <Trash size={16} />
+                    <span>REMOVER</span>
+                  </RemoveOption>
+                </div>
+              </CoffeeDetails>
+              <span>R${item.coffee.price.toFixed(2)}</span>
+            </CoffeeItem>
+          ))}
 
           <TotalSection>
             <TotalItem>

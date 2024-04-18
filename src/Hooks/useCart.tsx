@@ -1,22 +1,35 @@
 import { ReactNode, createContext } from 'react';
 import { useState } from 'react';
+import { ICardCoffes } from '../pages/Home/CardCoffes';
 
 interface CartContextType {
   totalItems: number;
   addToCart: (quantity: number) => void; // Ensure this is a function
+  addItemToCart: (item: ICardCoffes) => void;
+  cartItems: ICardCoffes[];
 }
 
 export const CartContext = createContext({} as CartContextType);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [totalItems, setTotalItems] = useState(0);
+  const [cartItems, setCartItems] = useState<ICardCoffes[]>([]);
 
   function addToCart(quantity: number): void {
     const newTotalItems = totalItems + quantity;
     setTotalItems(newTotalItems);
   }
+  function addItemToCart(item: ICardCoffes): void {
+    const newCartItems = [...cartItems, item];
+    console.log(newCartItems);
+
+    setCartItems(newCartItems);
+  }
+
   return (
-    <CartContext.Provider value={{ totalItems, addToCart }}>
+    <CartContext.Provider
+      value={{ totalItems, addToCart, addItemToCart, cartItems }}
+    >
       {children}
     </CartContext.Provider>
   );
