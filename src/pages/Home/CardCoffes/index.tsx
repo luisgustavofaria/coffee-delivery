@@ -43,6 +43,7 @@ export function CardCoffes({ coffee }: ICardCoffes) {
   function onAddToCart() {
     addToCart(quantity);
     addItemToCart({ coffee });
+
     setQuantity(0);
   }
 
