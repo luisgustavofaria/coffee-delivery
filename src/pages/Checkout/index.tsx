@@ -28,7 +28,7 @@ import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
 
 export function Checkout() {
-  const { cartItems, quantityItem } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
 
   return (
     <ContainerCheckout>
@@ -97,7 +97,7 @@ export function Checkout() {
                     <button>
                       <Minus size={14} />
                     </button>
-                    <span>{quantityItem}</span>
+                    <span>1</span>
                     <button>
                       <Plus size={14} />
                     </button>
