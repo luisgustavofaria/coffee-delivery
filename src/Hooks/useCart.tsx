@@ -5,6 +5,7 @@ import { ICardCoffes } from '../pages/Home/CardCoffes';
 interface CartContextType {
   addToCart: (quantity: number) => void; // Ensure this is a function
   addItemToCart: (item: ICardCoffes) => void;
+  updateCartItemQuantity: (itemId: string, quantity: number) => void;
 
   totalItems: number;
   cartItems: ICardCoffes[];
@@ -49,6 +50,33 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  function updateCartItemQuantity(itemId: string, quantity: number): void {
+    const updatedCartItems = cartItems.map((cartItem) => {
+      if (cartItem.coffee.id === itemId) {
+        const oldQuantity = cartItem.coffee.quantity;
+        const difference = quantity - oldQuantity;
+        const newTotalItems = totalItems + difference;
+
+        if (newTotalItems > 0) {
+          setTotalItems(newTotalItems);
+          return {
+            ...cartItem,
+            coffee: {
+              ...cartItem.coffee,
+              quantity: quantity,
+            },
+          };
+        } else {
+          // Se a quantidade total se tornar negativa, mantenha a quantidade do item anterior e não atualize totalItems
+          return cartItem;
+        }
+      }
+      return cartItem;
+    });
+
+    setCartItems(updatedCartItems);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -56,6 +84,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         addToCart,
         addItemToCart,
         cartItems,
+        updateCartItemQuantity,
       }}
     >
       {children}

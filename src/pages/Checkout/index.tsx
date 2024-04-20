@@ -28,7 +28,11 @@ import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
 
 export function Checkout() {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, updateCartItemQuantity } = useContext(CartContext);
+
+  const handleQuantityChange = (itemId: string, newQuantity: number) => {
+    updateCartItemQuantity(itemId, newQuantity);
+  };
 
   return (
     <ContainerCheckout>
@@ -94,11 +98,25 @@ export function Checkout() {
 
                 <div>
                   <QuantityControl>
-                    <button>
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(
+                          item.coffee.id,
+                          item.coffee.quantity - 1
+                        )
+                      }
+                    >
                       <Minus size={14} />
                     </button>
                     <span>{item.coffee.quantity}</span>
-                    <button>
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(
+                          item.coffee.id,
+                          item.coffee.quantity + 1
+                        )
+                      }
+                    >
                       <Plus size={14} />
                     </button>
                   </QuantityControl>
