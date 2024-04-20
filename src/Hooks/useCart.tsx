@@ -1,5 +1,5 @@
 import { ReactNode, createContext } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ICardCoffes } from '../pages/Home/CardCoffes';
 
 interface CartContextType {
@@ -14,28 +14,38 @@ export const CartContext = createContext({} as CartContextType);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [totalItems, setTotalItems] = useState(0);
-
   const [cartItems, setCartItems] = useState<ICardCoffes[]>([]);
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   function addToCart(quantity: number): void {
     const newTotalItems = totalItems + quantity;
     setTotalItems(newTotalItems);
   }
   function addItemToCart(item: ICardCoffes): void {
-    const existingItemIndex = cartItems.findIndex(
+    // Verifica se o item já está no carrinho pelo ID
+    const existingItem = cartItems.find(
       (cartItem) => cartItem.coffee.id === item.coffee.id
     );
 
-    if (existingItemIndex !== -1) {
+    if (existingItem) {
       // Se o item já estiver no carrinho, atualiza apenas a quantidade
-      const updatedCartItems = [...cartItems];
-      updatedCartItems[existingItemIndex].coffee.quantity +=
-        item.coffee.quantity;
+      const updatedCartItems = cartItems.map((cartItem) => {
+        return {
+          ...cartItem,
+          coffee: {
+            ...cartItem.coffee,
+            quantity: cartItem.coffee.quantity + item.coffee.quantity,
+          },
+        };
+      });
+
       setCartItems(updatedCartItems);
     } else {
       // Caso contrário, adiciona o novo item ao carrinho
-      const newCartItems = [...cartItems, item];
-      setCartItems(newCartItems);
+      setCartItems([...cartItems, item]);
     }
   }
 
