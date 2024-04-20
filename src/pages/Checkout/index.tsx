@@ -97,7 +97,7 @@ export function Checkout() {
                     <button>
                       <Minus size={14} />
                     </button>
-                    <span>1</span>
+                    <span>{item.coffee.quantity}</span>
                     <button>
                       <Plus size={14} />
                     </button>

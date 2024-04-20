@@ -22,29 +22,32 @@ export interface ICardCoffes {
     tags: string[];
     price: number;
     image: string;
+    quantity: number;
   };
 }
 
 export function CardCoffes({ coffee }: ICardCoffes) {
-  const [quantity, setQuantity] = useState(0);
+  const [quantityItem, setQuantity] = useState(0);
   const { addToCart } = useContext(CartContext);
   const { addItemToCart } = useContext(CartContext);
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    setQuantity(quantityItem + 1);
   };
 
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+    if (quantityItem > 0) {
+      setQuantity(quantityItem - 1);
     }
   };
 
   function onAddToCart() {
-    addToCart(quantity);
-    addItemToCart({ coffee });
-
-    setQuantity(0);
+    if (quantityItem > 0) {
+      const updatedCoffee = { ...coffee, quantity: quantityItem }; // Atualiza a quantidade de coffee
+      addToCart(quantityItem);
+      addItemToCart({ coffee: updatedCoffee });
+      setQuantity(0);
+    }
   }
 
   return (
@@ -72,7 +75,7 @@ export function CardCoffes({ coffee }: ICardCoffes) {
             <button onClick={decreaseQuantity}>
               <Minus size={14} />
             </button>
-            <span>{quantity}</span>
+            <span>{quantityItem}</span>
             <button onClick={increaseQuantity}>
               <Plus size={14} />
             </button>

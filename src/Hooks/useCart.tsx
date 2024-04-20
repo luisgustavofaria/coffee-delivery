@@ -22,10 +22,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setTotalItems(newTotalItems);
   }
   function addItemToCart(item: ICardCoffes): void {
-    const newCartItems = [...cartItems, item];
-    console.log(newCartItems);
+    const existingItemIndex = cartItems.findIndex(
+      (cartItem) => cartItem.coffee.id === item.coffee.id
+    );
 
-    setCartItems(newCartItems);
+    if (existingItemIndex !== -1) {
+      // Se o item já estiver no carrinho, atualiza apenas a quantidade
+      const updatedCartItems = [...cartItems];
+      updatedCartItems[existingItemIndex].coffee.quantity +=
+        item.coffee.quantity;
+      setCartItems(updatedCartItems);
+    } else {
+      // Caso contrário, adiciona o novo item ao carrinho
+      const newCartItems = [...cartItems, item];
+      setCartItems(newCartItems);
+    }
   }
 
   return (

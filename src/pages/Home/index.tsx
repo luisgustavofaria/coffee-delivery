@@ -75,7 +75,7 @@ export function Home() {
         <h2>Nossos Cafés</h2>
         <ContainerCardCoffees>
           {coffees.map((coffee) => (
-            <CardCoffes key={coffee.id} coffee={coffee} />
+            <CardCoffes key={coffee.id} coffee={{ ...coffee, quantity: 0 }} />
           ))}
         </ContainerCardCoffees>
       </ContainerCoffes>
