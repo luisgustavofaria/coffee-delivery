@@ -6,7 +6,7 @@ interface CartContextType {
   addToCart: (quantity: number) => void; // Ensure this is a function
   addItemToCart: (item: ICardCoffes) => void;
   updateCartItemQuantity: (itemId: string, quantity: number) => void;
-
+  removeItem: (itemId: string) => void;
   totalItems: number;
   cartItems: ICardCoffes[];
 }
@@ -77,6 +77,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems(updatedCartItems);
   }
 
+  function removeItem(itemId: string) {
+    // Filtra os itens do carrinho para excluir o item com o ID correspondente
+    const updatedCartItems = cartItems.filter(
+      (item) => item.coffee.id !== itemId
+    );
+    // Atualiza o estado do contexto do carrinho com a nova lista de itens
+    setCartItems(updatedCartItems);
+    // Atualiza o total de itens subtraindo a quantidade do item removido
+    const removedItem = cartItems.find((item) => item.coffee.id === itemId);
+    if (removedItem) {
+      setTotalItems(totalItems - removedItem.coffee.quantity);
+    }
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -85,6 +99,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         addItemToCart,
         cartItems,
         updateCartItemQuantity,
+        removeItem,
       }}
     >
       {children}

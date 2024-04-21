@@ -28,10 +28,15 @@ import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
 
 export function Checkout() {
-  const { cartItems, updateCartItemQuantity } = useContext(CartContext);
+  const { cartItems, updateCartItemQuantity, removeItem } =
+    useContext(CartContext);
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
-    updateCartItemQuantity(itemId, newQuantity);
+    if (newQuantity >= 1) updateCartItemQuantity(itemId, newQuantity);
+  };
+
+  const onRemoveItem = (itemId: string) => {
+    removeItem(itemId);
   };
 
   return (
@@ -120,7 +125,7 @@ export function Checkout() {
                       <Plus size={14} />
                     </button>
                   </QuantityControl>
-                  <RemoveOption>
+                  <RemoveOption onClick={() => onRemoveItem(item.coffee.id)}>
                     <Trash size={16} />
                     <span>REMOVER</span>
                   </RemoveOption>
