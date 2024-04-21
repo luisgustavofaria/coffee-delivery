@@ -244,6 +244,7 @@ export const ConfirmButton = styled.div`
   background-color: ${(props) => props.theme.colors.yellow};
   border-radius: 8px;
   text-align: center;
+  cursor: pointer;
 
   &:hover {
     background-color: ${(props) => props.theme.colors['yellow-dark']};

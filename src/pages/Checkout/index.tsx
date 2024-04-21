@@ -26,8 +26,34 @@ import {
 } from './styles';
 import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as zod from 'zod';
+
+interface AdressDetails {
+  cep: string;
+  rua: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+}
 
 export function Checkout() {
+  const { register, handleSubmit } = useForm<AdressDetails>({
+    resolver: zodResolver(
+      zod.object({
+        cep: zod.string().min(1, 'Digitar'),
+        rua: zod.string().min(1, 'Digitar'),
+        numero: zod.string().min(1, 'Digitar'),
+        complemento: zod.string(),
+        bairro: zod.string().min(1, 'Digitar'),
+        cidade: zod.string().min(1, 'Digitar'),
+        uf: zod.string().min(1, 'Digitar'),
+      })
+    ),
+  });
   const { cartItems, updateCartItemQuantity, removeItem } =
     useContext(CartContext);
 
@@ -46,6 +72,14 @@ export function Checkout() {
   const totalfrete = 3.5;
   const totalPrice = totalItemsPrice + totalfrete;
 
+  function handleCreateAdress(data: AdressDetails) {
+    console.log(data);
+  }
+
+  const handleConfirmButtonClick = () => {
+    handleSubmit(handleCreateAdress)();
+  };
+
   return (
     <ContainerCheckout>
       <ContainerPaymentData>
@@ -58,17 +92,21 @@ export function Checkout() {
               <span>Informe o endereço onde deseja receber seu pedido</span>
             </div>
           </div>
-          <form action="">
-            <input type="text" placeholder="CEP" />
-            <input type="text" placeholder="Rua" />
+          <form onSubmit={handleSubmit(handleCreateAdress)}>
+            <input type="text" placeholder="CEP" {...register('cep')} />
+            <input type="text" placeholder="Rua" {...register('rua')} />
             <div>
-              <input type="text" placeholder="Número" />
-              <input type="text" placeholder="Complemento" />
+              <input type="text" placeholder="Número" {...register('numero')} />
+              <input
+                type="text"
+                placeholder="Complemento"
+                {...register('complemento')}
+              />
             </div>
             <div>
-              <input type="text" placeholder="Bairro" />
-              <input type="text" placeholder="Cidade" />
-              <input type="text" placeholder="UF" />
+              <input type="text" placeholder="Bairro" {...register('bairro')} />
+              <input type="text" placeholder="Cidade" {...register('cidade')} />
+              <input type="text" placeholder="UF" {...register('uf')} />
             </div>
           </form>
         </ContainerAdress>
@@ -159,7 +197,7 @@ export function Checkout() {
               <span>R${totalPrice.toFixed(2).replace('.', ',')}</span>
             </TotalItem>
           </TotalSection>
-          <ConfirmButton>
+          <ConfirmButton onClick={handleConfirmButtonClick}>
             <span>CONFIRMAR PEDIDO</span>
           </ConfirmButton>
         </CoffeeOrder>
