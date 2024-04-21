@@ -39,6 +39,13 @@ export function Checkout() {
     removeItem(itemId);
   };
 
+  const totalItemsPrice = cartItems.reduce(
+    (acc, item) => acc + item.coffee.price * item.coffee.quantity,
+    0
+  );
+  const totalfrete = 3.5;
+  const totalPrice = totalItemsPrice + totalfrete;
+
   return (
     <ContainerCheckout>
       <ContainerPaymentData>
@@ -138,7 +145,10 @@ export function Checkout() {
           <TotalSection>
             <TotalItem>
               <span>Total de itens</span>
-              <span>R$29,70</span>
+              <span>
+                R$
+                {totalItemsPrice.toFixed(2).replace('.', ',')}
+              </span>
             </TotalItem>
             <TotalItem>
               <span>Entrega</span>
@@ -146,7 +156,7 @@ export function Checkout() {
             </TotalItem>
             <TotalItem>
               <span>Total</span>
-              <span>R$32,20</span>
+              <span>R${totalPrice.toFixed(2).replace('.', ',')}</span>
             </TotalItem>
           </TotalSection>
           <ConfirmButton>
