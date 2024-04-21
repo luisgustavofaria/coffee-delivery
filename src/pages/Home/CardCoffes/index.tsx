@@ -28,16 +28,15 @@ export interface ICardCoffes {
 
 export function CardCoffes({ coffee }: ICardCoffes) {
   const [quantityItem, setQuantity] = useState(0);
-  const { addToCart } = useContext(CartContext);
-  const { addItemToCart } = useContext(CartContext);
+  const { addToCart, addItemToCart } = useContext(CartContext);
 
   const increaseQuantity = () => {
-    setQuantity(quantityItem + 1);
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   const decreaseQuantity = () => {
     if (quantityItem > 0) {
-      setQuantity(quantityItem - 1);
+      setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
 

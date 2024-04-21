@@ -55,7 +55,7 @@ export function Checkout() {
       })
     ),
   });
-  const { cartItems, updateCartItemQuantity, removeItem, addAdressToSucess } =
+  const { cartItems, updateCartItemQuantity, removeItem, addAddressToSuccess } =
     useContext(CartContext);
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
@@ -73,12 +73,12 @@ export function Checkout() {
   const totalfrete = 3.5;
   const totalPrice = totalItemsPrice + totalfrete;
 
-  function handleCreateAdress(data: AddressDetails) {
-    addAdressToSucess(data);
+  function handleCreateAddress(data: AddressDetails) {
+    addAddressToSuccess(data);
   }
 
   const handleConfirmButtonClick = () => {
-    handleSubmit(handleCreateAdress)();
+    handleSubmit(handleCreateAddress)();
   };
 
   return (
@@ -93,7 +93,7 @@ export function Checkout() {
               <span>Informe o endereço onde deseja receber seu pedido</span>
             </div>
           </div>
-          <form onSubmit={handleSubmit(handleCreateAdress)}>
+          <form onSubmit={handleSubmit(handleCreateAddress)}>
             <input type="text" placeholder="CEP" {...register('cep')} />
             <input type="text" placeholder="Rua" {...register('rua')} />
             <div>
