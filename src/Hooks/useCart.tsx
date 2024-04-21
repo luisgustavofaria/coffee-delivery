@@ -1,14 +1,17 @@
 import { ReactNode, createContext } from 'react';
 import { useState, useEffect } from 'react';
 import { ICardCoffes } from '../pages/Home/CardCoffes';
+import { AddressDetails } from '../pages/Checkout';
 
 interface CartContextType {
   addToCart: (quantity: number) => void; // Ensure this is a function
   addItemToCart: (item: ICardCoffes) => void;
   updateCartItemQuantity: (itemId: string, quantity: number) => void;
   removeItem: (itemId: string) => void;
+  addAdressToSucess: (data: AddressDetails) => void;
   totalItems: number;
   cartItems: ICardCoffes[];
+  address: AddressDetails[];
 }
 
 export const CartContext = createContext({} as CartContextType);
@@ -16,6 +19,7 @@ export const CartContext = createContext({} as CartContextType);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [totalItems, setTotalItems] = useState(0);
   const [cartItems, setCartItems] = useState<ICardCoffes[]>([]);
+  const [address, setAddress] = useState<AddressDetails[]>([]);
 
   useEffect(() => {
     console.log(cartItems);
@@ -91,6 +95,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  function addAdressToSucess(data: AddressDetails) {
+    setAddress([data]);
+    setCartItems([]);
+    setTotalItems(0);
+  }
+  console.log(address);
+
   return (
     <CartContext.Provider
       value={{
@@ -100,6 +111,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cartItems,
         updateCartItemQuantity,
         removeItem,
+        addAdressToSucess,
+        address,
       }}
     >
       {children}

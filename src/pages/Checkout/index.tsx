@@ -29,8 +29,9 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
+import { NavLink } from 'react-router-dom';
 
-interface AdressDetails {
+export interface AddressDetails {
   cep: string;
   rua: string;
   numero: string;
@@ -41,7 +42,7 @@ interface AdressDetails {
 }
 
 export function Checkout() {
-  const { register, handleSubmit } = useForm<AdressDetails>({
+  const { register, handleSubmit } = useForm<AddressDetails>({
     resolver: zodResolver(
       zod.object({
         cep: zod.string().min(1, 'Digitar'),
@@ -54,7 +55,7 @@ export function Checkout() {
       })
     ),
   });
-  const { cartItems, updateCartItemQuantity, removeItem } =
+  const { cartItems, updateCartItemQuantity, removeItem, addAdressToSucess } =
     useContext(CartContext);
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
@@ -72,8 +73,8 @@ export function Checkout() {
   const totalfrete = 3.5;
   const totalPrice = totalItemsPrice + totalfrete;
 
-  function handleCreateAdress(data: AdressDetails) {
-    console.log(data);
+  function handleCreateAdress(data: AddressDetails) {
+    addAdressToSucess(data);
   }
 
   const handleConfirmButtonClick = () => {
@@ -197,9 +198,11 @@ export function Checkout() {
               <span>R${totalPrice.toFixed(2).replace('.', ',')}</span>
             </TotalItem>
           </TotalSection>
-          <ConfirmButton onClick={handleConfirmButtonClick}>
-            <span>CONFIRMAR PEDIDO</span>
-          </ConfirmButton>
+          <NavLink to="/success" style={{ textDecoration: 'none' }}>
+            <ConfirmButton onClick={handleConfirmButtonClick}>
+              <span>CONFIRMAR PEDIDO</span>
+            </ConfirmButton>
+          </NavLink>
         </CoffeeOrder>
       </OrderContainer>
     </ContainerCheckout>

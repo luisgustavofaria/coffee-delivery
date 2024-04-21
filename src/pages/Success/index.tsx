@@ -5,8 +5,12 @@ import {
   Information,
   InformationGroup,
 } from './styled';
+import { CartContext } from '../../Hooks/useCart';
+import { useContext } from 'react';
 
 export function Success() {
+  const { address } = useContext(CartContext);
+
   return (
     <ContainerSuccess>
       <span>Uhu! Pedido confirmado</span>
@@ -22,12 +26,17 @@ export function Success() {
                 weight="fill"
               />
             </div>
-            <div>
-              <span>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
-              </span>
-              <span>Farrapos - Porto Alegre, RS</span>
-            </div>
+            {address.map((e, i) => (
+              <div key={i}>
+                <span>
+                  Entrega em
+                  <strong>{` ${e.rua}, ${e.numero}`}</strong>
+                </span>
+                <span>
+                  {e.bairro} - {e.cidade}, {e.uf}
+                </span>
+              </div>
+            ))}
           </Information>
           <Information>
             <div>
