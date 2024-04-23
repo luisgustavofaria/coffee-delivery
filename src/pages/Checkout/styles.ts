@@ -47,6 +47,10 @@ export const ContainerAddressPayment = styled.div`
   }
 `;
 
+export const DivRelative = styled.div`
+  position: relative;
+`;
+
 export const ContainerAdress = styled(ContainerAddressPayment)`
   form {
     display: flex;
@@ -68,6 +72,9 @@ export const ContainerAdress = styled(ContainerAddressPayment)`
       > input:nth-child(3) {
         width: 60px;
       }
+    }
+    strong {
+      position: absolute;
     }
   }
 
@@ -239,11 +246,11 @@ export const TotalItem = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-export const ConfirmButton = styled.div`
+export const ConfirmButton = styled.button`
   padding: 12px;
   background-color: ${(props) => props.theme.colors.yellow};
   border-radius: 8px;
-  text-align: center;
+  width: 100%;
   cursor: pointer;
 
   &:hover {

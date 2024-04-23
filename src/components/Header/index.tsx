@@ -12,7 +12,7 @@ import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
 
 export function Header() {
-  const { totalItems, address } = useContext(CartContext);
+  const { totalItems } = useContext(CartContext);
 
   return (
     <ContainerHeader>
@@ -22,9 +22,8 @@ export function Header() {
       <Aside>
         <DivLocalization>
           <MapPin size={22} color="#8047F8" weight="duotone" />
-          {address.map((e, i) => (
-            <span key={i}>{e.cidade}</span>
-          ))}
+
+          <span>São José do Rio Preto</span>
         </DivLocalization>
         <NavLink to="/checkout">
           <DivShoppingCart>

@@ -23,12 +23,13 @@ import {
   TotalSection,
   TotalItem,
   ConfirmButton,
+  DivRelative,
 } from './styles';
 import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as zod from 'zod';
+import { z } from 'zod';
 import { NavLink } from 'react-router-dom';
 
 export interface AddressDetails {
@@ -42,18 +43,33 @@ export interface AddressDetails {
 }
 
 export function Checkout() {
-  const { register, handleSubmit } = useForm<AddressDetails>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm<AddressDetails>({
     resolver: zodResolver(
-      zod.object({
-        cep: zod.string().min(1, 'Digitar'),
-        rua: zod.string().min(1, 'Digitar'),
-        numero: zod.string().min(1, 'Digitar'),
-        complemento: zod.string(),
-        bairro: zod.string().min(1, 'Digitar'),
-        cidade: zod.string().min(1, 'Digitar'),
-        uf: zod.string().min(1, 'Digitar'),
+      z.object({
+        cep: z.string().min(1, 'Digite um CEP'),
+        rua: z.string().min(1, 'Digite uma Rua'),
+        numero: z.string().min(1, 'Digite um Número'),
+        complemento: z.string(),
+        bairro: z.string().min(1, 'Digite um Bairro'),
+        cidade: z.string().min(1, 'Digite uma Cidade'),
+        uf: z.string().min(1, 'Digite UF'),
       })
     ),
+    defaultValues: {
+      cep: '',
+      rua: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      uf: '',
+    },
   });
   const { cartItems, updateCartItemQuantity, removeItem, addAddressToSuccess } =
     useContext(CartContext);
@@ -75,11 +91,19 @@ export function Checkout() {
 
   function handleCreateAddress(data: AddressDetails) {
     addAddressToSuccess(data);
+    console.log(data);
+    reset();
   }
+
+  console.log(errors);
 
   const handleConfirmButtonClick = () => {
     handleSubmit(handleCreateAddress)();
   };
+
+  const allFields = watch(['cep', 'rua', 'numero', 'bairro', 'cidade', 'uf']);
+
+  const isSubmitDisabled = !allFields;
 
   return (
     <ContainerCheckout>
@@ -94,10 +118,36 @@ export function Checkout() {
             </div>
           </div>
           <form onSubmit={handleSubmit(handleCreateAddress)}>
-            <input type="text" placeholder="CEP" {...register('cep')} />
-            <input type="text" placeholder="Rua" {...register('rua')} />
+            <DivRelative>
+              <input type="text" placeholder="CEP" {...register('cep')} />
+              {errors.cep && (
+                <strong style={{ color: '#ff0000' }}>
+                  {errors.cep.message}
+                </strong>
+              )}
+            </DivRelative>
+            <DivRelative>
+              <input type="text" placeholder="Rua" {...register('rua')} />
+              {errors.rua && (
+                <strong style={{ color: '#ff0000' }}>
+                  {errors.rua.message}
+                </strong>
+              )}
+            </DivRelative>
             <div>
-              <input type="text" placeholder="Número" {...register('numero')} />
+              <DivRelative>
+                <input
+                  type="text"
+                  placeholder="Número"
+                  {...register('numero')}
+                />
+                {errors.numero && (
+                  <strong style={{ color: '#ff0000' }}>
+                    {errors.numero.message}
+                  </strong>
+                )}
+              </DivRelative>
+
               <input
                 type="text"
                 placeholder="Complemento"
@@ -105,9 +155,38 @@ export function Checkout() {
               />
             </div>
             <div>
-              <input type="text" placeholder="Bairro" {...register('bairro')} />
-              <input type="text" placeholder="Cidade" {...register('cidade')} />
-              <input type="text" placeholder="UF" {...register('uf')} />
+              <DivRelative>
+                <input
+                  type="text"
+                  placeholder="Bairro"
+                  {...register('bairro')}
+                />
+                {errors.bairro && (
+                  <strong style={{ color: '#ff0000' }}>
+                    {errors.bairro.message}
+                  </strong>
+                )}
+              </DivRelative>
+              <DivRelative>
+                <input
+                  type="text"
+                  placeholder="Cidade"
+                  {...register('cidade')}
+                />
+                {errors.cidade && (
+                  <strong style={{ color: '#ff0000' }}>
+                    {errors.cidade.message}
+                  </strong>
+                )}
+              </DivRelative>
+              <DivRelative>
+                <input type="text" placeholder="UF" {...register('uf')} />
+                {errors.uf && (
+                  <strong style={{ color: '#ff0000' }}>
+                    {errors.uf.message}
+                  </strong>
+                )}
+              </DivRelative>
             </div>
           </form>
         </ContainerAdress>
@@ -198,11 +277,14 @@ export function Checkout() {
               <span>R${totalPrice.toFixed(2).replace('.', ',')}</span>
             </TotalItem>
           </TotalSection>
-          <NavLink to="/success" style={{ textDecoration: 'none' }}>
-            <ConfirmButton onClick={handleConfirmButtonClick}>
+          <ConfirmButton
+            onClick={handleConfirmButtonClick}
+            disabled={isSubmitDisabled}
+          >
+            <NavLink to="/success" style={{ textDecoration: 'none' }}>
               <span>CONFIRMAR PEDIDO</span>
-            </ConfirmButton>
-          </NavLink>
+            </NavLink>
+          </ConfirmButton>
         </CoffeeOrder>
       </OrderContainer>
     </ContainerCheckout>
