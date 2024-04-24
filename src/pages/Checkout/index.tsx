@@ -24,6 +24,9 @@ import {
   TotalItem,
   ConfirmButton,
   DivRelative,
+  ContainerAdressDiv2,
+  ContainerAdressDiv3,
+  ContainerAdressDiv1,
 } from './styles';
 import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
@@ -118,23 +121,25 @@ export function Checkout() {
             </div>
           </div>
           <form onSubmit={handleSubmit(handleCreateAddress)}>
-            <DivRelative>
-              <input type="text" placeholder="CEP" {...register('cep')} />
-              {errors.cep && (
-                <strong style={{ color: '#ff0000' }}>
-                  {errors.cep.message}
-                </strong>
-              )}
-            </DivRelative>
-            <DivRelative>
-              <input type="text" placeholder="Rua" {...register('rua')} />
-              {errors.rua && (
-                <strong style={{ color: '#ff0000' }}>
-                  {errors.rua.message}
-                </strong>
-              )}
-            </DivRelative>
-            <div>
+            <ContainerAdressDiv1>
+              <DivRelative>
+                <input type="text" placeholder="CEP" {...register('cep')} />
+                {errors.cep && (
+                  <strong style={{ color: '#ff0000' }}>
+                    {errors.cep.message}
+                  </strong>
+                )}
+              </DivRelative>
+              <DivRelative>
+                <input type="text" placeholder="Rua" {...register('rua')} />
+                {errors.rua && (
+                  <strong style={{ color: '#ff0000' }}>
+                    {errors.rua.message}
+                  </strong>
+                )}
+              </DivRelative>
+            </ContainerAdressDiv1>
+            <ContainerAdressDiv2>
               <DivRelative>
                 <input
                   type="text"
@@ -147,14 +152,15 @@ export function Checkout() {
                   </strong>
                 )}
               </DivRelative>
-
-              <input
-                type="text"
-                placeholder="Complemento"
-                {...register('complemento')}
-              />
-            </div>
-            <div>
+              <DivRelative>
+                <input
+                  type="text"
+                  placeholder="Complemento"
+                  {...register('complemento')}
+                />
+              </DivRelative>
+            </ContainerAdressDiv2>
+            <ContainerAdressDiv3>
               <DivRelative>
                 <input
                   type="text"
@@ -187,7 +193,7 @@ export function Checkout() {
                   </strong>
                 )}
               </DivRelative>
-            </div>
+            </ContainerAdressDiv3>
           </form>
         </ContainerAdress>
         <ContainerPayment>

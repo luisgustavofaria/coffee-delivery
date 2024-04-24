@@ -48,6 +48,8 @@ export const ContainerAddressPayment = styled.div`
 `;
 
 export const DivRelative = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
 `;
 
@@ -61,20 +63,10 @@ export const ContainerAdress = styled(ContainerAddressPayment)`
     input:nth-child(1) {
       width: 200px;
     }
-
-    > div {
-      display: flex;
-      gap: 12px;
-
-      > input:nth-child(2) {
-        flex-grow: 1;
-      }
-      > input:nth-child(3) {
-        width: 60px;
-      }
-    }
     strong {
       position: absolute;
+      bottom: -15px;
+      width: 200px;
     }
   }
 
@@ -91,6 +83,48 @@ export const ContainerAdress = styled(ContainerAddressPayment)`
 
   input:focus {
     border-color: ${(props) => props.theme.colors.yellow};
+  }
+`;
+
+export const ContainerAdressDiv1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  > div:nth-child(2) {
+    input {
+      width: 100%;
+    }
+  }
+`;
+export const ContainerAdressDiv2 = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 12px;
+
+  > div:nth-child(2) {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+`;
+export const ContainerAdressDiv3 = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 12px;
+
+  > div:nth-child(2) {
+    width: 100%;
+    input {
+      width: 100%;
+    }
+  }
+  > div:nth-child(3) {
+    input {
+      width: 60px;
+    }
   }
 `;
 
