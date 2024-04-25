@@ -288,7 +288,14 @@ export function Checkout() {
               <span>R${totalPrice.toFixed(2).replace('.', ',')}</span>
             </TotalItem>
           </TotalSection>
-          {bairro && cep && cidade && numero && rua && uf ? (
+
+          {cartItems.length > 0 &&
+          bairro &&
+          cep &&
+          cidade &&
+          numero &&
+          rua &&
+          uf ? (
             <NavLink to="/success" style={{ textDecoration: 'none' }}>
               <ConfirmButton onClick={handleConfirmButtonClick}>
                 <span>CONFIRMAR PEDIDO</span>
@@ -298,6 +305,11 @@ export function Checkout() {
             <ConfirmButton onClick={handleConfirmButtonClick}>
               <span>CONFIRMAR PEDIDO</span>
             </ConfirmButton>
+          )}
+          {cartItems.length === 0 && (
+            <span style={{ color: '#ff0000' }}>
+              Adicione pelo menos um item
+            </span>
           )}
         </CoffeeOrder>
       </OrderContainer>
