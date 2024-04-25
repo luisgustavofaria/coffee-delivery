@@ -50,8 +50,8 @@ export function Checkout() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     watch,
+    reset,
   } = useForm<AddressDetails>({
     resolver: zodResolver(
       z.object({
@@ -74,8 +74,13 @@ export function Checkout() {
       uf: '',
     },
   });
-  const { cartItems, updateCartItemQuantity, removeItem, addAddressToSuccess } =
-    useContext(CartContext);
+  const {
+    cartItems,
+    updateCartItemQuantity,
+    removeItem,
+    addAddressToSuccess,
+    addPaymentToSuccess,
+  } = useContext(CartContext);
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     if (newQuantity >= 1) updateCartItemQuantity(itemId, newQuantity);
@@ -84,6 +89,8 @@ export function Checkout() {
   const onRemoveItem = (itemId: string) => {
     removeItem(itemId);
   };
+
+  const { bairro, cep, cidade, numero, rua, uf } = watch();
 
   const totalItemsPrice = cartItems.reduce(
     (acc, item) => acc + item.coffee.price * item.coffee.quantity,
@@ -94,19 +101,17 @@ export function Checkout() {
 
   function handleCreateAddress(data: AddressDetails) {
     addAddressToSuccess(data);
-    console.log(data);
+
     reset();
   }
-
-  console.log(errors);
 
   const handleConfirmButtonClick = () => {
     handleSubmit(handleCreateAddress)();
   };
 
-  const allFields = watch(['cep', 'rua', 'numero', 'bairro', 'cidade', 'uf']);
-
-  const isSubmitDisabled = !allFields;
+  function handlePaymentSelection(paymentOption: string) {
+    addPaymentToSuccess(paymentOption);
+  }
 
   return (
     <ContainerCheckout>
@@ -207,15 +212,15 @@ export function Checkout() {
             </div>
           </div>
           <Payment>
-            <button>
+            <button onClick={() => handlePaymentSelection('CARTÃO DE CRÉDITO')}>
               <CreditCard size={16} color="#8047F8" />
               <span>CARTÃO DE CREDITO</span>
             </button>
-            <button>
+            <button onClick={() => handlePaymentSelection('CARTÃO DE DÉBITO')}>
               <Bank size={16} color="#8047F8" />
               <span>CARTÃO DE DÉBITO</span>
             </button>
-            <button>
+            <button onClick={() => handlePaymentSelection('DINHEIRO')}>
               <Money size={16} color="#8047F8" />
               <span>DINHEIRO</span>
             </button>
@@ -283,14 +288,17 @@ export function Checkout() {
               <span>R${totalPrice.toFixed(2).replace('.', ',')}</span>
             </TotalItem>
           </TotalSection>
-          <ConfirmButton
-            onClick={handleConfirmButtonClick}
-            disabled={isSubmitDisabled}
-          >
+          {bairro && cep && cidade && numero && rua && uf ? (
             <NavLink to="/success" style={{ textDecoration: 'none' }}>
-              <span>CONFIRMAR PEDIDO</span>
+              <ConfirmButton onClick={handleConfirmButtonClick}>
+                <span>CONFIRMAR PEDIDO</span>
+              </ConfirmButton>
             </NavLink>
-          </ConfirmButton>
+          ) : (
+            <ConfirmButton onClick={handleConfirmButtonClick}>
+              <span>CONFIRMAR PEDIDO</span>
+            </ConfirmButton>
+          )}
         </CoffeeOrder>
       </OrderContainer>
     </ContainerCheckout>

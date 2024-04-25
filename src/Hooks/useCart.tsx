@@ -9,9 +9,11 @@ interface CartContextType {
   updateCartItemQuantity: (itemId: string, quantity: number) => void;
   removeItem: (itemId: string) => void;
   addAddressToSuccess: (data: AddressDetails) => void;
+  addPaymentToSuccess: (PaymentOptions: string) => void;
   totalItems: number;
   cartItems: ICardCoffes[];
   address: AddressDetails[];
+  selectedPayment: string;
 }
 
 export const CartContext = createContext({} as CartContextType);
@@ -96,6 +98,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setTotalItems(0);
   }
 
+  const [selectedPayment, setSelectedPayment] = useState('');
+
+  function addPaymentToSuccess(paymentOption: string) {
+    setSelectedPayment(paymentOption);
+    console.log(selectedPayment);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -107,6 +116,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         removeItem,
         addAddressToSuccess,
         address,
+        addPaymentToSuccess,
+        selectedPayment,
       }}
     >
       {children}

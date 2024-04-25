@@ -9,7 +9,7 @@ import { CartContext } from '../../Hooks/useCart';
 import { useContext } from 'react';
 
 export function Success() {
-  const { address } = useContext(CartContext);
+  const { address, selectedPayment } = useContext(CartContext);
 
   return (
     <ContainerSuccess>
@@ -65,7 +65,7 @@ export function Success() {
             <div>
               <span>Pagamento na entrega</span>
               <span>
-                <strong>Cartão de Crédito</strong>
+                <strong>{selectedPayment}</strong>
               </span>
             </div>
           </Information>
