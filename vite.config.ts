@@ -1,5 +1,7 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import type { UserConfig } from 'vite';
+import { defineConfig } from 'vite';
+import type { InlineConfig } from 'vitest';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,4 +10,11 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  test: {
+    globals: true,
+    setupFiles: ['./test/setup.ts'],
+    environment: 'happy-dom',
+  },
+} as UserConfig & {
+  test: InlineConfig;
 });

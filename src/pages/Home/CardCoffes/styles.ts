@@ -85,7 +85,7 @@ export const QuantityInput = styled.div`
   border-radius: 5px;
 
   svg {
-    color: ${(props) => props.theme.colors.purple};
+    color: #ebe5f9;
   }
 
   button {
@@ -104,7 +104,7 @@ export const QuantityInput = styled.div`
 
     &:hover {
       svg {
-        color: ${(props) => props.theme.colors['purple-dark']};
+        color: #4b2995;
         transform: scale(1.3);
       }
     }
